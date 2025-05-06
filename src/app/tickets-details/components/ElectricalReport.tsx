@@ -15,6 +15,8 @@ const ElectricalReport: React.FC = () => {
   
   // Format the timestamp if a ticket is selected
   const formattedTime = selectedTicket ? formatRelativeTime(selectedTicket.datetime_received) : '';
+
+  // console.log('Selected ticket',selectedTicket)
   
   return (
     <div className="space-y-6">

@@ -63,10 +63,12 @@ export interface LaborCost {
 }
 
 export interface CostBreakdownData {
-  parts: CostCategory;
-  tools: CostCategory;
-  labor: LaborCost;
-  total_cost: number;
+  cost_breakdown: {
+    parts: CostCategory;
+    tools: CostCategory;
+    labor: LaborCost;
+    total_cost: number;
+  }
 }
 
 // Worker match skill interface

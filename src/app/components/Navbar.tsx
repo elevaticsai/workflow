@@ -58,6 +58,9 @@ const Navbar: React.FC = () => {
                 <Link href="/dashboard" className="text-white hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                   Dashboard
                 </Link>
+                <Link href="/create-ticket" className="text-gray-300 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                  Create Ticket
+                </Link>
                 <Link href="/tickets-details" className="text-gray-300 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
                   Work Orders
                 </Link>
