@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import ReportHeader from './ReportHeader';
 import TriageAssessment from './TriageAssessment';
 import CostBreakdown from './CostBreakdown';
+import IssueImage from './IssueImage';
 import { useTicketContext } from '@/app/context/TicketContext';
 import { formatRelativeTime } from '@/app/hooks/useActiveCases';
 
@@ -42,6 +43,13 @@ const ElectricalReport: React.FC = () => {
       
       {selectedTicket && (
         <>
+
+         {/* Issue Image Card */}
+         <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700">
+            <div className="p-4">
+              <IssueImage ticketId={selectedTicket.ticket_id} />
+            </div>
+          </div>
           {/* Triage Assessment Card */}
           <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700">
             <div className="p-4">
@@ -55,6 +63,8 @@ const ElectricalReport: React.FC = () => {
               <CostBreakdown ticketId={selectedTicket.ticket_id} />
             </div>
           </div>
+          
+         
           
           {/* Action Button */}
           <div className="flex">

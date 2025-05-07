@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { getTriageAssessment, TriageAssessmentData } from '../services/api';
+import { useQuery } from "@tanstack/react-query";
+import { getTriageAssessment, TriageAssessmentData } from "../services/api";
 
 /**
  * Custom hook for fetching triage assessment data for a specific ticket
@@ -7,10 +7,10 @@ import { getTriageAssessment, TriageAssessmentData } from '../services/api';
  */
 export function useTriageAssessment(ticketId: string | undefined) {
   return useQuery({
-    queryKey: ['triageAssessment', ticketId],
+    queryKey: ["triageAssessment", ticketId],
     queryFn: () => {
       if (!ticketId) {
-        throw new Error('Ticket ID is required');
+        throw new Error("Ticket ID is required");
       }
       return getTriageAssessment(ticketId);
     },
@@ -27,9 +27,9 @@ export function useTriageAssessment(ticketId: string | undefined) {
  */
 export function formatName(name: string): string {
   return name
-    .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 /**
@@ -37,13 +37,13 @@ export function formatName(name: string): string {
  */
 export function getCriticalityColor(criticality: string): string {
   switch (criticality.toLowerCase()) {
-    case 'high':
-      return 'bg-red-600';
-    case 'medium':
-      return 'bg-orange-500';
-    case 'low':
-      return 'bg-blue-600';
+    case "high":
+      return "text-red-500 border border-red-500 px-4 py-2 rounded-md font-semibold hover:bg-red-500 hover:text-white transition";
+    case "medium":
+      return "text-orange-500 border border-orange-500 px-4 py-2 rounded-md font-semibold hover:bg-orange-500 hover:text-white transition";
+    case "low":
+      return "text-blue-500 border border-blue-500 px-4 py-2 rounded-md font-semibold hover:bg-blue-500 hover:text-white transition";
     default:
-      return 'bg-gray-600';
+      return "bg-gray-600";
   }
 }

@@ -1,38 +1,38 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState } from "react";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
   const [isResetting, setIsResetting] = useState(false);
   const [resetMessage, setResetMessage] = useState<string | null>(null);
   const [showNotification, setShowNotification] = useState(false);
-  
+
   const handleResetDatabase = async () => {
     if (isResetting) return;
-    
+
     try {
       setIsResetting(true);
       setResetMessage(null);
-      
-      const response = await fetch('/api/reset-database', {
-        method: 'POST',
+
+      const response = await fetch("/api/reset-database", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       });
-      
+
       const data = await response.json();
-      
+
       setResetMessage(data.message);
       setShowNotification(true);
-      
+
       // Hide notification after 3 seconds
       setTimeout(() => {
         setShowNotification(false);
       }, 3000);
     } catch (error) {
-      setResetMessage('Failed to reset database. Please try again.');
+      setResetMessage("Failed to reset database. Please try again.");
       setShowNotification(true);
     } finally {
       setIsResetting(false);
@@ -51,42 +51,76 @@ const Navbar: React.FC = () => {
                 </div>
               </Link>
             </div>
-            
+
             {/* Navigation links centered */}
             <div className="hidden md:flex flex-1 justify-center">
               <div className="flex items-baseline space-x-8">
-                <Link href="/dashboard" className="text-white hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                <Link
+                  href="/dashboard"
+                  className="text-white hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
                   Dashboard
                 </Link>
-                <Link href="/create-ticket" className="text-gray-300 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                <Link
+                  href="/create-ticket"
+                  className="text-gray-300 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
                   Create Ticket
                 </Link>
-                <Link href="/tickets-details" className="text-gray-300 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                <Link
+                  href="/tickets-details"
+                  className="text-gray-300 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
                   Work Orders
                 </Link>
-                <Link href="/database-tables" className="text-gray-300 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">
+                <Link
+                  href="/database-tables"
+                  className="text-gray-300 hover:bg-gray-800 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
                   Tables
                 </Link>
               </div>
             </div>
-            
+
             {/* Reset Database button on the right */}
             <div className="hidden md:block">
               <button
                 type="button"
-                className={`${isResetting ? 'bg-gray-500' : 'bg-red-600 hover:bg-red-700'} text-white px-3 py-1.5 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 flex items-center`}
+                className={`${
+                  isResetting
+                    ? "bg-gray-500"
+                    : "border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                } text-white px-3 py-1.5 text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 flex items-center`}
                 onClick={handleResetDatabase}
                 disabled={isResetting}
               >
                 {isResetting ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-2 h-3 w-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-2 h-3 w-3 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     <span>Resetting...</span>
                   </>
-                ) : 'Reset Database'}
+                ) : (
+                  "Reset Database"
+                )}
               </button>
             </div>
             <div className="-mr-2 flex md:hidden">
@@ -96,29 +130,72 @@ const Navbar: React.FC = () => {
                 aria-expanded="false"
               >
                 <span className="sr-only">Open main menu</span>
-                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                <svg
+                  className="block h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               </button>
             </div>
           </div>
         </div>
       </nav>
-      
+
       {/* Success/Error Notification */}
       {showNotification && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setShowNotification(false)}></div>
-          <div className={`relative rounded-md p-4 shadow-lg ${resetMessage?.includes('success') ? 'bg-green-900/90' : 'bg-red-900/90'} text-white max-w-md mx-auto`}>
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setShowNotification(false)}
+          ></div>
+          <div
+            className={`relative rounded-md p-4 shadow-lg ${
+              resetMessage?.includes("success")
+                ? "bg-green-900/90"
+                : "bg-red-900/90"
+            } text-white max-w-md mx-auto`}
+          >
             <div className="flex">
               <div className="flex-shrink-0">
-                {resetMessage?.includes('success') ? (
-                  <svg className="h-5 w-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                {resetMessage?.includes("success") ? (
+                  <svg
+                    className="h-5 w-5 text-green-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                 ) : (
-                  <svg className="h-5 w-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="h-5 w-5 text-red-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                 )}
               </div>
@@ -133,8 +210,19 @@ const Navbar: React.FC = () => {
                     onClick={() => setShowNotification(false)}
                   >
                     <span className="sr-only">Dismiss</span>
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
                     </svg>
                   </button>
                 </div>
